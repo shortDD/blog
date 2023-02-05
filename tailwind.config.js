@@ -7,7 +7,13 @@ module.exports = {
         "4/3": "4 / 3",
       },
       screens: {
-        xs: "365px",
+        xs: "545px",
+      },
+      spacing: {
+        76: "19rem",
+      },
+      scale: {
+        175: "1.75",
       },
     },
   },
@@ -17,7 +23,7 @@ module.exports = {
       "dark",
       {
         "m-light": {
-          primary: "#56c930",
+          primary: "#38bdf8",
 
           secondary: "#86909c",
 
@@ -34,7 +40,7 @@ module.exports = {
       },
       {
         "m-dark": {
-          primary: "#56c930",
+          primary: "#a3a3a3",
 
           secondary: "#86909c",
 
@@ -42,11 +48,11 @@ module.exports = {
 
           neutral: "#312C3A",
 
-          "base-100": "#262626",
+          "base-100": "#1c1917",
 
-          "base-200": "#1c1917",
+          "base-200": "#262626",
 
-          "base-300": "#1c1917",
+          "base-300": "#171717",
         },
       },
     ],

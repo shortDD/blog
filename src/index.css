@@ -24,5 +24,10 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
 }
-
+.translate-z-0 {
+  transform: translateZ(0);
+}
+.ratio {
+  padding-top: 25%;
+}
 @tailwind utilities;
