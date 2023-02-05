@@ -1,6 +1,7 @@
 import { useToggleHeaderStyle } from "@/hooks";
 import { resetTheme } from "@/utils";
 import { useRef } from "react";
+import { Navigation } from "./navigation";
 export const Header = () => {
   const headerEl = useRef<HTMLDivElement | null>(null);
   const nav2 = useRef<HTMLDivElement | null>(null);
@@ -21,6 +22,12 @@ export const Header = () => {
         <div className="container-lg h-14 flex-between ">
           {/* 左侧菜单 */}
           <div className="left text-white">BLOG / Chat / 图片 /</div>
+          {/* 中间logo */}
+          {/* <div className="center">
+            <span className="font-black text-xl">
+              BLOCKSY <span className=" text-blue-500 font-medium"> NEWS</span>
+            </span>
+          </div> */}
           {/* 切换主题 */}
           <div className="right">
             <button
@@ -48,13 +55,13 @@ export const Header = () => {
           className="container-lg h-28  flex-between transition-all duration-300 "
           ref={nav2}
         >
-          <div className="left">
-            <span className="font-black text-xl">
-              BLOCKSY <span className=" text-blue-500 font-medium"> NEWS</span>
-            </span>
-          </div>
-          <div className="right  md-hidden ">
-            信息通知/收藏/历史记录/创作中心/操作/登入
+          {/* 左侧用户信息 */}
+          <div className="left"></div>
+          {/* 小屏时提供搜索功能 */}
+          <div className="center"></div>
+          <div className="right   ">
+            {/* 右侧菜单 */}
+            <Navigation />
           </div>
         </div>
       </div>
