@@ -6,6 +6,8 @@ type Record = {
 type ToggleStyle = {
   down: string;
   up: string;
+  //视口宽度小于该值 不执行操作
+  media?: number;
 };
 export const useToggleHeaderStyle = (
   els: React.MutableRefObject<HTMLDivElement | null>[],
@@ -38,7 +40,7 @@ export const useToggleHeaderStyle = (
       const newDir = newScrollTop > oldScrollTop ? "down" : "up";
       record.current = { direction: newDir, scrollTop: newScrollTop };
       //没有方向值，判断为初始阶段
-      if (typeof oldDir === "undefined") return true;
+      // if (typeof oldDir === "undefined") return false;
       //记录本次状态
       return newDir === oldDir ? false : true;
     }
@@ -47,6 +49,8 @@ export const useToggleHeaderStyle = (
       if (flag) {
         const dir = record.current.direction as string;
         els.forEach((el, index) => {
+          if (styles[index].media && window.innerWidth <= styles[index].media!)
+            return;
           el.current?.classList.add(
             dir === "down" ? styles[index]["down"] : styles[index]["up"]
           );
@@ -56,7 +60,7 @@ export const useToggleHeaderStyle = (
         });
       }
     }
-    const toggleHeaderStyle = throttle(demo, 200);
+    const toggleHeaderStyle = throttle(demo, 100);
     window.addEventListener("scroll", toggleHeaderStyle);
     return () => {
       window.removeEventListener("scroll", toggleHeaderStyle);

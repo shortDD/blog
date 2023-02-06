@@ -9,7 +9,7 @@ export const Tags: React.FC<TagsProps> = ({ tags }) => {
     // 此处调用接口
   };
   return (
-    <div className="flex flex-wrap">
+    <div className="flex md:flex-wrap items-center">
       {tags.map((tag, index) => (
         <div
           onClick={searchByTags}

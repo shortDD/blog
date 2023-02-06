@@ -9,6 +9,9 @@
 .md-hidden {
   @apply max-md:hidden;
 }
+.md-show {
+  @apply md:hidden;
+}
 .xs-hidden {
   @apply max-xs:hidden;
 }
@@ -17,6 +20,15 @@
 }
 .flex-2 {
   flex: 2;
+}
+.avatar-lg {
+  @apply w-16 h-16 max-md:w-10 max-md:h-10;
+}
+.avatar-md {
+  @apply w-10 h-10;
+}
+.avatar-sm {
+  @apply w-8 h-8;
 }
 .ellipsis {
   display: -webkit-box;

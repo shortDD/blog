@@ -97,7 +97,7 @@ const articleData = [
     username: "lily",
   },
 ];
-const tagList: TagType[] = [
+export const tagList: TagType[] = [
   { tagname: "React" },
   { tagname: "Vue" },
   { tagname: "Vue2" },
@@ -109,12 +109,15 @@ const tagList: TagType[] = [
 ];
 export const HomePage = () => {
   const asideEl = useRef<HTMLDivElement | null>(null);
-  useToggleHeaderStyle([asideEl], [{ down: "top-20", up: "top-48" }]);
+  useToggleHeaderStyle(
+    [asideEl],
+    [{ down: "top-20", up: "top-48", media: 768 }]
+  );
   return (
     <div>
       <Header />
       {/*切换主题颜色*/}
-      <main className=" bg-base-200 pt-48 " id="main">
+      <main className=" bg-base-200 pt-48 max-md:pt-32 " id="main">
         <div className="container-lg flex ">
           {/* 文章列表 */}
           <div className="flex-1">
@@ -134,7 +137,7 @@ export const HomePage = () => {
           {/* 动态隐藏 */}
           <div className=" w-76 ml-3 md-hidden ">
             <div
-              className="w-76 fixed top-48 transition-all duration-300"
+              className="w-76 fixed  top-48 transition-all duration-300"
               ref={asideEl}
             >
               <div className=" h-72 bg-base-100 p-4">
