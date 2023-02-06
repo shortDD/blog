@@ -1,3 +1,5 @@
 import { initTheme, resetTheme } from "./theme";
 import { isNull } from "./isNull";
-export { initTheme, resetTheme, isNull };
+
+import { initHistoryList, addHistory } from "./searchHistory";
+export { initTheme, resetTheme, isNull, initHistoryList, addHistory };

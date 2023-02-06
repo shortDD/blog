@@ -1,11 +1,10 @@
 import { useToggleHeaderStyle } from "@/hooks";
 import { tagList } from "@/pages/home";
 import { resetTheme } from "@/utils";
-import Search from "antd/es/input/Search";
 import { useRef } from "react";
-import { SearchV1 } from "../actions/search";
+import { SearchV2 } from "../actions/search";
 import { Tags } from "../actions/tag";
-import { Navigation } from "./navigation";
+// import { Navigation } from "./navigation";
 export const Header = () => {
   const headerEl = useRef<HTMLDivElement | null>(null);
   const nav2 = useRef<HTMLDivElement | null>(null);
@@ -28,9 +27,7 @@ export const Header = () => {
   const followings = 12;
   const post = 10;
 
-  const onSearch = (val: string) => {
-    console.log(val);
-  };
+  const onSearch = (val: string) => {};
   return (
     <div
       className="fixed top-0 left-0 right-0 z-50 transition duration-300 "
@@ -95,17 +92,13 @@ export const Header = () => {
               </div>
             </div>
             {/* 小屏显示搜索框 */}
-            <div>
-              <Search
-                placeholder="请输入内容"
-                allowClear
-                onSearch={onSearch}
-                style={{ width: 200 }}
-                className="md:hidden"
-              />
+            <div className="md:hidden flex-1 flex justify-center">
+              <SearchV2 onSearch={onSearch} history={true} />
             </div>
             {/* 右侧菜单 */}
-            <div className="right ">{/* <Navigation /> */}</div>
+            <div className="right  w-8 h-8 bg-black ml-4 ">
+              {/* <Navigation /> */}
+            </div>
           </div>
           {/* 小屏显示标签栏 */}
           <div className="h-14 w-full flex items-center md:hidden">

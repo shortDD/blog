@@ -7,10 +7,11 @@ export const useAddClass = (
   classes: Classes
 ) => {
   function toggle() {
+    if (!el.current) return;
     const replaceValue = classes.replaceValue;
     const defaultValue = classes.default;
-    el.current?.classList.add(replaceValue);
-    el.current?.classList.remove(defaultValue);
+    replaceValue.trim() && el.current?.classList.add(replaceValue);
+    defaultValue.trim() && el.current?.classList.remove(defaultValue);
     classes = { default: replaceValue, replaceValue: defaultValue };
   }
   return [toggle];
