@@ -25,11 +25,13 @@ module.exports = {
         "m-light": {
           primary: "#38bdf8",
 
-          secondary: "#86909c",
+          secondary: "#d4d4d4",
 
           accent: "#eaa948",
 
           neutral: "#312C3A",
+
+          hello: "#8a919f",
 
           "base-100": "#ffffff",
 

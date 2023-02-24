@@ -1,7 +1,7 @@
 import { useToggleHeaderStyle } from "@/hooks";
 import { tagList } from "@/pages/home";
 import { resetTheme } from "@/utils";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { SearchV2 } from "../actions/search";
 import { Tags } from "../actions/tag";
 // import { Navigation } from "./navigation";
@@ -26,7 +26,7 @@ export const Header = () => {
   const followers = 666;
   const followings = 12;
   const post = 10;
-
+  const [dropDownShow, setDropDownShow] = useState<boolean>(false);
   const onSearch = (val: string) => {};
   return (
     <div
@@ -71,13 +71,40 @@ export const Header = () => {
             <div className="left">
               <div className="flex">
                 {/* 头像 */}
-                <div className="mr-5 flex items-center justify-center">
+                <div className="mr-5 flex items-center justify-center relative">
                   <img
                     ref={avatarEl}
                     src={avatar}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setDropDownShow((current) => !current);
+                      const close = (event: any) => {
+                        // if()
+                        console.log(event);
+                        setDropDownShow(false);
+                        document.removeEventListener("click", close);
+                      };
+                      document.removeEventListener("click", close);
+
+                      document.addEventListener("click", close);
+                    }}
                     alt="avatar"
                     className="rounded-lg avatar-lg transition-all duration-300"
                   />
+                  {/* 用户操作区 */}
+                  <ul
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    className={`absolute w-60 left-0 -bottom-4 translate-y-full p-5 w- border rounded-md cursor-pointer hover:shadow-lg bg-base-100 z-30 ${
+                      dropDownShow ? "" : "hidden"
+                    }`}
+                  >
+                    <li className="border-t h-12 flex items-center justify-between text-xs text-gray-400   ">
+                      <span className="hover:text-primary">个人设置</span>
+                      <span className="hover:text-primary">注销</span>
+                    </li>
+                  </ul>
                 </div>
                 {/* 大屏展示用户信息 */}
                 <div className="md-hidden" ref={userInfoEl}>

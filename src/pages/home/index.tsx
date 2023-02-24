@@ -1,6 +1,6 @@
 import { ArticleCard } from "@/components/views/articleCard";
 import { Header } from "@/components/views/header";
-import { SearchV1 } from "@/components/actions/search";
+import { SearchV2 } from "@/components/actions/search";
 import { Tags, TagType } from "@/components/actions/tag";
 import { useToggleHeaderStyle } from "@/hooks";
 import { useRef } from "react";
@@ -142,7 +142,9 @@ export const HomePage = () => {
             >
               <div className=" h-72 bg-base-100 p-4">
                 {/* 搜索功能 */}
-                <SearchV1 />
+                <div className="mb-4">
+                  <SearchV2 onSearch={() => {}} history={true} />
+                </div>
                 {/* 标签功能 */}
                 <Tags tags={tagList} />
               </div>
