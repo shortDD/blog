@@ -41,7 +41,7 @@ export const Header = () => {
           {/* 切换主题 */}
           <div className="right">
             <button
-              className=" py-1 px-2 bg-primary rounded text-neutral"
+              className=" py-1 px-2 bg-green-400 rounded "
               onClick={() => {
                 resetTheme("m-dark");
               }}
@@ -49,7 +49,7 @@ export const Header = () => {
               夜间模式
             </button>
             <button
-              className=" py-1 px-2 bg-secondary rounded text-neutral ml-3"
+              className=" py-1 px-2 bg-sky-500 rounded  ml-3"
               onClick={() => {
                 resetTheme("m-light");
               }}
@@ -96,7 +96,7 @@ export const Header = () => {
                     onClick={(e) => {
                       e.stopPropagation();
                     }}
-                    className={`absolute w-60 left-0 -bottom-4 translate-y-full p-5 w- border rounded-md cursor-pointer hover:shadow-lg bg-base-100 z-30 ${
+                    className={`absolute w-60 left-0 p-5 -bottom-4 translate-y-full  border rounded-md cursor-pointer hover:shadow-lg bg-base-100 z-30 ${
                       dropDownShow ? "" : "hidden"
                     }`}
                   >
@@ -107,7 +107,7 @@ export const Header = () => {
                   </ul>
                 </div>
                 {/* 大屏展示用户信息 */}
-                <div className="md-hidden" ref={userInfoEl}>
+                <div className="md-hidden " ref={userInfoEl}>
                   <div className="mb-1 font-semibold">{username}</div>
                   <div className=" text-sm text-gray-400 mb-1">{describe}</div>
                   <ul className="flex items-center text-sm">

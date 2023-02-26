@@ -29,8 +29,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   mode = "首页",
 }) => {
   const hasCover = isNull(cover);
-  const bottomRigthActions = useRef<HTMLUListElement | null>(null);
-  const [toggleClass] = useAddClass(bottomRigthActions, {
+  const bottomRightActions = useRef<HTMLUListElement | null>(null);
+  const [toggleClass] = useAddClass(bottomRightActions, {
     default: "scale-x-0",
     replaceValue: "scale-x-100",
   });
@@ -96,7 +96,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       </div>
 
       {/*底部*/}
-      <div className="flex-between border-t footer h-10 rounded-b-md absolute bottom-0  px-4">
+      <div className="flex-between  footer h-10 rounded-b-md absolute bottom-0 px-4">
         <ul className=" list-none flex items-center">
           <li className="mr-1">
             <div className="flex items-center text-gray-400 cursor-pointer text-lg hover:text-gray-600">
@@ -120,7 +120,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         <div className=" cursor-pointer relative flex items-center text-lg">
           <ul
             className="  origin-right flex items-center whitespace-nowrap  text-xs transition-all duration-300 overflow-hidden scale-x-0 "
-            ref={bottomRigthActions}
+            ref={bottomRightActions}
           >
             <li className=" hover:text-primary rounded-md py-1 px-2">
               不感兴趣

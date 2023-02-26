@@ -29,30 +29,28 @@ module.exports = {
 
           accent: "#eaa948",
 
-          neutral: "#312C3A",
-
-          hello: "#8a919f",
+          neutral: "#38bdf8",
 
           "base-100": "#ffffff",
 
-          "base-200": "#f9fafb",
+          "base-200": "#f6f6f7",
 
           "base-300": "#1e293b",
         },
       },
       {
         "m-dark": {
-          primary: "#a3a3a3",
+          primary: "#10b981",
 
           secondary: "#86909c",
 
           accent: "#eaa948",
 
-          neutral: "#312C3A",
+          neutral: "#10b981",
 
-          "base-100": "#1c1917",
+          "base-100": "#252529",
 
-          "base-200": "#262626",
+          "base-200": "#1e1e20",
 
           "base-300": "#171717",
         },
