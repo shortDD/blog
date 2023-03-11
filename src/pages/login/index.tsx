@@ -1,69 +1,89 @@
-import { LoginData } from "@/api/login";
+import { loginApi, LoginData } from "@/api/login";
+import { useMutation } from "react-query";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "@/utils";
 import { useState } from "react";
-
+import store from "@/store";
 export const LoginPage = () => {
-  const [flag, setFlag] = useState<boolean>(true);
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const navigate = useNavigate();
+  const { loginStore } = store;
+  const [loginError, setLoginError] = useState("");
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors, isValid },
+  } = useForm<LoginData>({ mode: "onChange" });
+  const { mutate, isLoading } = useMutation(
+    (loginData: LoginData) => loginApi(loginData),
+    {
+      onSuccess: (data: any) => {
+        if (data.ok) {
+          setToken(data.token);
+          loginStore.state.token = data.token;
+          loginStore.state.userInfo = data.user;
+          navigate("/");
+        } else {
+          setLoginError(data.error);
+        }
+      },
+    }
+  );
+  const onSubmit: SubmitHandler<LoginData> = () => {
+    if (isLoading) return;
+    const { username, password } = getValues();
+    mutate({ username, password });
+  };
+
   return (
     <div className="h-screen relative  bg-base-200">
-      <div className="h-full absolute right-0 top-0 w-1/2 flex items-center justify-center">
-        <div className=" bg-base-100 max-w-lg w-full rounded-lg py-12 px-8">
-          <h1 className=" text-neutral font-bold pb-12  text-3xl text-center border-b-2 border-b-base-200 tracking-widest">
-            登录
-          </h1>
-          <form
-            className={`py-8 ${flag ? "" : "hidden"}`}
-            onSubmit={(e) => {
-              e.preventDefault();
-              const loginData: LoginData = {
-                username,
-                password,
-              };
-              console.log(loginData);
-            }}
-          >
-            <div className=" h-16 bg-base-200 flex items-center justify-center px-4 rounded-md mb-8">
-              <input
-                className=" w-full outline-none bg-base-200 transition-all duration-200 text-secondary text-sm font-semibold "
-                type="text"
-                placeholder="username"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                }}
-              />
-            </div>
-            <div className=" h-16 bg-base-200 flex items-center justify-center px-4 rounded-md mb-8">
-              <input
-                className=" w-full outline-none bg-base-200 transition-all duration-200 text-secondary text-sm font-semibold "
-                type="password"
-                placeholder="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
+      <div className=" absolute bg-base-100 max-w-sm w-full rounded-lg py-12 px-8 md:right-36 top-1/2 max-md:left-1/2 max-md:-translate-x-1/2 -translate-y-1/2">
+        <h1 className=" text-neutral font-bold pb-12  text-3xl text-center border-b-2 border-b-base-200 tracking-widest">
+          登录
+        </h1>
+        <form className="py-6" onSubmit={handleSubmit(onSubmit)}>
+          <div className=" h-12 bg-base-200 flex items-center justify-center px-4 rounded-md mb-3">
             <input
-              className="transition-all duration-200 cursor-pointer bg-neutral h-16 w-full rounded-md text-white"
-              type="submit"
-              value="登入"
+              className=" leading-10  w-full outline-none bg-base-200 transition-all duration-200  text-md font-semibold "
+              type="text"
+              placeholder="username"
+              {...register("username", { required: true })}
             />
-          </form>
-          <div className="flex items-center justify-between">
-            <span className=" cursor-pointer hover:text-neutral">
-              忘记密码?
-            </span>
-            <span
-              className="cursor-pointer hover:text-neutral"
-              onClick={() => {
-                setFlag(false);
-              }}
-            >
-              注册
-            </span>
           </div>
+          {errors.username && (
+            <div className=" text-center mb-3">
+              <span className=" text-red-500 text-sm">密码不能为空</span>
+            </div>
+          )}
+          <div className=" h-12 bg-base-200 flex items-center justify-center px-4 rounded-md mb-3">
+            <input
+              className=" leading-6  w-full outline-none bg-base-200 transition-all duration-200  text-md font-semibold "
+              type="password"
+              placeholder="password"
+              {...register("password", { required: true })}
+            />
+          </div>
+          {errors.password && (
+            <div className=" text-center mb-3">
+              <span className=" text-red-500 text-sm">密码不能为空</span>
+            </div>
+          )}
+          <input
+            className="transition-all duration-200 cursor-pointer bg-neutral h-12 w-full rounded-md text-white"
+            type="submit"
+            value="登入"
+            disabled={!isValid}
+          />
+          {loginError && (
+            <div className=" text-center mb-3">
+              <span className=" text-red-500 text-sm">{loginError}</span>
+            </div>
+          )}
+        </form>
+        <div className="flex items-center justify-between">
+          <span className=" cursor-pointer hover:text-neutral">忘记密码?</span>
+          <span className="cursor-pointer hover:text-neutral">注册</span>
         </div>
       </div>
     </div>
