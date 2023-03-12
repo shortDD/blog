@@ -23,7 +23,7 @@ module.exports = {
       "dark",
       {
         "m-light": {
-          primary: "#38bdf8",
+          primary: "#00aeec",
 
           secondary: "#d4d4d4",
 

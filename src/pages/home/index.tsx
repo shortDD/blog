@@ -4,7 +4,6 @@ import { SearchV2 } from "@/components/actions/search";
 import { Tags, TagType } from "@/components/actions/tag";
 import { useToggleHeaderStyle } from "@/hooks";
 import { useRef } from "react";
-import { useLogin } from "@/hooks/useLogin";
 const articleData = [
   {
     articleId: 1,
@@ -114,10 +113,7 @@ export const HomePage = () => {
     [asideEl],
     [{ down: "top-20", up: "top-48", media: 768 }]
   );
-  const { logout } = useLogin();
-  const overflowAuto = () => {
-    document.documentElement.style.overflow = "auto";
-  };
+
   return (
     <div>
       <Header />
@@ -157,31 +153,6 @@ export const HomePage = () => {
           </div>
         </div>
       </main>
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">确认退出吗?</h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="my-modal" className="btn" onClick={overflowAuto}>
-              取消
-            </label>
-            <label
-              htmlFor="my-modal"
-              className="btn"
-              onClick={() => {
-                logout();
-                overflowAuto();
-              }}
-            >
-              确定
-            </label>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

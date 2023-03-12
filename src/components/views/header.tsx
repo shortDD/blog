@@ -7,10 +7,13 @@ import { useRef, useState } from "react";
 import { useQuery } from "react-query";
 import { SearchV2 } from "../actions/search";
 import { Tags } from "../actions/tag";
+import { Avatar } from "../avatar";
+import { Dropdown } from "../dropdown";
+import { LoginCard } from "../login-card";
 import { Popconfirm } from "../popconfirm";
+import { PopLogin } from "../poplogin";
 // import { Navigation } from "./navigation";
-const avatar =
-  "https://img1.baidu.com/it/u=1403245892,3051757811&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500";
+
 // 左侧用户信息组件
 const UserCard = () => {
   const avatarEl = useRef<HTMLImageElement | null>(null);
@@ -18,64 +21,36 @@ const UserCard = () => {
   useToggleHeaderStyle(
     [avatarEl, userInfoEl],
     [
-      { down: "avatar-md", up: "avatar-lg" },
+      { down: "w-10", up: "w-16" },
       { down: "hidden", up: "", media: 768 },
     ]
   );
-  const [dropDownShow, setDropDownShow] = useState<boolean>(false);
   const { logout } = useLogin();
   const { isLoading, data } = useQuery(["me"], meApi);
   return (
-    <div className="flex">
+    <div className="flex ">
       {/* 头像 */}
-      <div className="mr-5 flex items-center justify-center relative">
-        <img
-          ref={avatarEl}
-          src={data?.avatar ? data.avatar : avatar}
-          onClick={(e) => {
-            e.stopPropagation();
-            setDropDownShow((current) => !current);
-            const close = (event: any) => {
-              console.log(event);
-              setDropDownShow(false);
-              document.removeEventListener("click", close);
-            };
-            document.removeEventListener("click", close);
-
-            document.addEventListener("click", close);
-          }}
-          alt="avatar"
-          className="rounded-lg avatar-lg transition-all duration-300"
-        />
-        {/* 用户操作区 */}
-        <ul
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          className={`absolute w-60 left-0 p-5 -bottom-4 translate-y-full  border rounded-md cursor-pointer hover:shadow-lg bg-base-100 z-30 ${
-            dropDownShow ? "" : "hidden"
-          }`}
-        >
-          <li className="border-t h-12 flex items-center justify-between text-xs text-gray-400   ">
-            <span className="hover:text-primary">个人设置</span>
-            <label
-              htmlFor="my-modal"
-              className="hover:text-primary"
-              onClick={() => {
-                document.documentElement.style.overflow = "hidden";
-              }}
-            >
-              注销
-            </label>
-
-            {/* <span className="hover:text-primary" onClick={logout}>
-              注销
-            </span> */}
-          </li>
-        </ul>
-      </div>
+      <Dropdown
+        mode="hover"
+        list={[
+          {
+            label: (
+              <Popconfirm
+                title="确认退出登入"
+                description="You've been selected for a chance to get one year of subscription to use Wikipedia for free!"
+                onConfirm={logout}
+                htmlFor="log-out"
+              >
+                <span className="hover:text-primary">注销1</span>
+              </Popconfirm>
+            ),
+          },
+        ]}
+      >
+        <Avatar url={data?.avatar} ref={avatarEl} />
+      </Dropdown>
       {/* 大屏展示用户信息 */}
-      <div className="md-hidden " ref={userInfoEl}>
+      <div className="md-hidden ml-3" ref={userInfoEl}>
         <div className="mb-1 font-semibold">{data?.username}</div>
         <div className=" text-sm text-gray-400 mb-1">
           {data?.bio ? data.bio : "这个人很懒什么都没有写"}
@@ -145,35 +120,22 @@ export const Header = () => {
             {/* 左侧用户信息 */}
             <div className="left">
               {/* 鉴权 */}
-              {isLogin ? <UserCard /> : <div>登入</div>}
+              {isLogin ? (
+                <UserCard />
+              ) : (
+                <PopLogin element={<LoginCard />} htmlFor="log-in">
+                  <span>登入</span>
+                </PopLogin>
+              )}
             </div>
             {/* 小屏显示搜索框 */}
             <div className="md:hidden flex-1 flex justify-center">
               <SearchV2 onSearch={onSearch} history={true} />
             </div>
             {/* 右侧菜单 */}
-            <Popconfirm
-              title={""}
-              description={""}
-              onConfirm={function (): void {
-                throw new Error("Function not implemented.");
-              }}
-            >
-              <div className="dropdown dropdown-end">
-                <div tabIndex={0} className=" w-8 h-8 bg-black m1"></div>
-                <ul
-                  tabIndex={0}
-                  className="dropdown-content menu p-2 shadow bg-base-100 rounded-md w-52 mt-2"
-                >
-                  <li>
-                    <a>Item 1</a>
-                  </li>
-                  <li>
-                    <a>Item 2</a>
-                  </li>
-                </ul>
-              </div>
-            </Popconfirm>
+            <Dropdown dir="bottom" end={true} list={[{ label: <a>item 1</a> }]}>
+              下拉菜单
+            </Dropdown>
           </div>
           {/* 小屏显示标签栏 */}
           <div className="h-14 w-full flex items-center md:hidden">
