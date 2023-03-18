@@ -6,6 +6,7 @@ import { NotFound } from "@/pages/404";
 import { CreatorPage } from "@/pages/creator";
 import { ArticlePage } from "@/pages/article";
 import { Auth } from "@/components/auth";
+import { EditorPage } from "@/pages/editor";
 //配置路由
 export const Routes = () =>
   useRoutes([
@@ -28,6 +29,10 @@ export const Routes = () =>
     {
       path: "/creator",
       element: <CreatorPage />,
+    },
+    {
+      path: "/editor",
+      element: <EditorPage />,
     },
     { path: "/article/:id", element: <ArticlePage /> },
     {

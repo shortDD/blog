@@ -1,5 +1,5 @@
 import { ArticleCard } from "@/components/views/articleCard";
-import { Header } from "@/components/views/header";
+import Header from "@/components/views/header";
 import { SearchV2 } from "@/components/actions/search";
 import { Tags, TagType } from "@/components/actions/tag";
 import { useToggleHeaderStyle } from "@/hooks";

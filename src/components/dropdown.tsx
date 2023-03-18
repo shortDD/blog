@@ -17,14 +17,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
     <div
       className={`dropdown ${dir ? `dropdown-${dir}` : ""} ${
         end ? "dropdown-end" : ""
-      } ${mode === "hover" ? "dropdown-hover" : ""} `}
+      } ${mode === "hover" ? "dropdown-hover pb-2 -mb-2" : ""}  `}
     >
       <label tabIndex={0} className="flex items-center justify-center">
         {children}
       </label>
       <ul
         tabIndex={0}
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 mt-2"
+        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52  mt-2"
       >
         {list.map((item, index) => (
           <li key={index}>{item.label}</li>

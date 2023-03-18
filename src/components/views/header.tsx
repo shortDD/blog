@@ -2,8 +2,9 @@ import { meApi } from "@/api";
 import { useToggleHeaderStyle } from "@/hooks";
 import { useLogin } from "@/hooks/useLogin";
 import { tagList } from "@/pages/home";
+import useStore from "@/store";
 import { resetTheme } from "@/utils";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useQuery } from "react-query";
 import { SearchV2 } from "../actions/search";
 import { Tags } from "../actions/tag";
@@ -12,7 +13,7 @@ import { Dropdown } from "../dropdown";
 import { LoginCard } from "../login-card";
 import { Popconfirm } from "../popconfirm";
 import { PopLogin } from "../poplogin";
-// import { Navigation } from "./navigation";
+import { observer } from "mobx-react-lite";
 
 // 左侧用户信息组件
 const UserCard = () => {
@@ -21,11 +22,12 @@ const UserCard = () => {
   useToggleHeaderStyle(
     [avatarEl, userInfoEl],
     [
-      { down: "w-10", up: "w-16" },
+      { down: "w-10", up: "w-16", media: 768 },
       { down: "hidden", up: "", media: 768 },
     ]
   );
-  const { logout } = useLogin();
+  const { loginStore } = useStore();
+  console.log(loginStore);
   const { isLoading, data } = useQuery(["me"], meApi);
   return (
     <div className="flex ">
@@ -38,10 +40,10 @@ const UserCard = () => {
               <Popconfirm
                 title="确认退出登入"
                 description="You've been selected for a chance to get one year of subscription to use Wikipedia for free!"
-                onConfirm={logout}
+                onConfirm={loginStore.logout}
                 htmlFor="log-out"
               >
-                <span className="hover:text-primary">注销1</span>
+                <span className="hover:text-primary">注销</span>
               </Popconfirm>
             ),
           },
@@ -65,17 +67,18 @@ const UserCard = () => {
   );
 };
 
-export const Header = () => {
+const Header = () => {
   const headerEl = useRef<HTMLDivElement | null>(null);
   const nav2 = useRef<HTMLDivElement | null>(null);
+  const store = useStore();
+  const { loginStore } = store;
   useToggleHeaderStyle(
     [headerEl, nav2],
     [
       { down: "-translate-y-14", up: "translate-z-0" },
-      { down: "h-14", up: "h-28", media: 768 },
+      { down: "md:h-14", up: "md:h-28", media: 768 },
     ]
   );
-  const { isLogin } = useLogin();
 
   const onSearch = (val: string) => {};
   return (
@@ -112,7 +115,7 @@ export const Header = () => {
       {/* 导航二 */}
       <div className="bg-base-100 shadow-md ">
         <div
-          className="container-lg transition-all duration-300  flex flex-col h-28"
+          className="container-lg transition-all duration-300  flex flex-col md:h-28 h28 "
           ref={nav2}
         >
           {/* 个人信息+搜索栏 */}
@@ -120,7 +123,7 @@ export const Header = () => {
             {/* 左侧用户信息 */}
             <div className="left">
               {/* 鉴权 */}
-              {isLogin ? (
+              {loginStore.isLogin ? (
                 <UserCard />
               ) : (
                 <PopLogin element={<LoginCard />} htmlFor="log-in">
@@ -146,3 +149,4 @@ export const Header = () => {
     </div>
   );
 };
+export default observer(Header);

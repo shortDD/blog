@@ -2,12 +2,11 @@ import { loginApi, LoginData } from "@/api/login";
 import { useMutation } from "react-query";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { setToken } from "@/utils";
 import { useState } from "react";
-import store from "@/store";
+import useStore from "@/store";
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { loginStore } = store;
+  const { loginStore } = useStore();
   const [loginError, setLoginError] = useState("");
   const {
     register,
@@ -20,10 +19,8 @@ export const LoginPage = () => {
     {
       onSuccess: (data: any) => {
         if (data.ok) {
-          setToken(data.token);
-          loginStore.state.token = data.token;
-          loginStore.state.userInfo = data.user;
-          navigate("/");
+          loginStore.setToken(data.token);
+          // navigate("/");
         } else {
           setLoginError(data.error);
         }

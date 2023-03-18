@@ -40,6 +40,7 @@ const PopLoginContent: React.FC<PopLoginContentProps> = ({
       <div className="modal">
         <div className="modal-box relative max-w-3xl h-96">
           <label
+            id={`${htmlFor}-btn`}
             htmlFor={htmlFor}
             className="btn btn-sm btn-circle absolute right-2 top-2"
             onClick={() => {

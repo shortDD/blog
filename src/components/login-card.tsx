@@ -1,12 +1,12 @@
 import { loginApi, LoginData } from "@/api/login";
-import store from "@/store";
 import { isNull, setToken } from "@/utils";
 import { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import Message from "@/components/message";
+import useStore from "@/store";
 export const LoginCard = () => {
-  const { loginStore } = store;
+  const { loginStore } = useStore();
 
   const submitInput = useRef<HTMLInputElement | null>(null);
 
@@ -22,9 +22,7 @@ export const LoginCard = () => {
     {
       onSuccess: (data: any) => {
         if (data.ok) {
-          setToken(data.token);
-          loginStore.state.token = data.token;
-          loginStore.state.userInfo = data.user;
+          loginStore.setToken(data.token);
         } else {
         }
       },
@@ -41,12 +39,14 @@ export const LoginCard = () => {
       {/* left */}
       <div className="flex flex-col ">
         {/* title */}
-        <div className=" mb-6 text-lg">扫描二维码登录</div>
-        <div className=" w-44"></div>
+        <div className=" mb-6 text-lg text-center">扫描二维码登录</div>
+        <div className="  w-40 border border-black aspect-square"></div>
         {/* code */}
       </div>
       {/* line */}
-      <div className="flex-1"></div>
+      <div className="pt-7 flex-1 overflow-hidden">
+        <div className=" w-0 mt-6 h-full border-l border-gray-300 mx-auto"></div>
+      </div>
       {/* right*/}
       <div className="flex flex-col w-96">
         <div className="mb-6 text-lg flex items-end justify-center">
@@ -83,7 +83,7 @@ export const LoginCard = () => {
           <input type="submit" ref={submitInput} className="hidden" />
         </form>
         {/* 按键 */}
-        <div className="w-full flex items-center  leading-10 text-sm text-center mt-5">
+        <div className="w-full flex items-center  leading-10 text-sm text-center mt-7">
           <div className="flex-1 h-10 bg-white border border-gray-200 rounded-lg cursor-pointer">
             注册
           </div>

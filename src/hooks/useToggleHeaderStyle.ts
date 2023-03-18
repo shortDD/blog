@@ -48,15 +48,22 @@ export const useToggleHeaderStyle = (
       const flag = contrast();
       if (flag) {
         const dir = record.current.direction as string;
+        const oldDir = dir === "down" ? "up" : "down";
         els.forEach((el, index) => {
           if (!styles[index]) return;
           if (styles[index].media && window.innerWidth <= styles[index].media!)
             return;
-          const currentClass =
-            dir === "down" ? styles[index]["down"] : styles[index]["up"];
+          // const currentClass =
+          //   dir === "down" ? styles[index]["down"] : styles[index]["up"];
+          const currentClass = styles[index][
+            dir as keyof ToggleStyle
+          ] as string;
           if (currentClass) el.current?.classList.add(currentClass);
-          const lastClass =
-            dir === "down" ? styles[index]["up"] : styles[index]["down"];
+          // const lastClass =
+          //   dir === "down" ? styles[index]["up"] : styles[index]["down"];
+          const lastClass = styles[index][
+            oldDir as keyof ToggleStyle
+          ] as string;
           if (lastClass) el.current?.classList.remove(lastClass);
         });
       }

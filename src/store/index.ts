@@ -1,3 +1,4 @@
+import { createContext, useContext } from "react";
 import LoginStore from "./login";
 
 class Store {
@@ -7,4 +8,6 @@ class Store {
   }
 }
 const store = new Store();
-export default store;
+const storeContext = createContext(store);
+const useStore = () => useContext(storeContext);
+export default useStore;

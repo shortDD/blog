@@ -17,7 +17,7 @@ export const Avatar = forwardRef(
     return (
       <div className="avatar">
         <div
-          className={`w-${size} rounded${
+          className={` w-${size} max-md:w-10 rounded${
             round ? "-" + round : ""
           } transition-all duration-300`}
           ref={ref}
