@@ -6,5 +6,7 @@
     "gemoji",
     "katex",
     "Popconfirm"
-  ]
+  ],
+  "typescript.tsdk": "\"typescript.tsdk\":\"./node_modules/typescript/lib\"",
+  "typescript.tsserver.enableTracing": true
 }

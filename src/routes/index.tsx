@@ -34,6 +34,10 @@ export const Routes = () =>
       path: "/editor",
       element: <EditorPage />,
     },
+    {
+      path: "/editor/:id",
+      element: <EditorPage />,
+    },
     { path: "/article/:id", element: <ArticlePage /> },
     {
       path: "/404",

@@ -1,0 +1,9 @@
+.bytemd-preview .markdown-body ol {
+  list-style-type: decimal !important;
+}
+.bytemd-preview .markdown-body ul {
+  list-style-type: decimal !important;
+}
+.bytemd {
+  height: calc(100vh - 64px);
+}
