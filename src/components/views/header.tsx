@@ -1,6 +1,5 @@
 import { meApi } from "@/api";
 import { useToggleHeaderStyle } from "@/hooks";
-import { useLogin } from "@/hooks/useLogin";
 import { tagList } from "@/pages/home";
 import useStore from "@/store";
 import { resetTheme } from "@/utils";
@@ -27,10 +26,9 @@ const UserCard = () => {
     ]
   );
   const { loginStore } = useStore();
-  console.log(loginStore);
-  const { isLoading, data } = useQuery(["me"], meApi);
+  const { data } = useQuery(["me"], meApi, { staleTime: 0 });
   return (
-    <div className="flex ">
+    <div className="flex">
       {/* 头像 */}
       <Dropdown
         mode="hover"
@@ -132,16 +130,20 @@ const Header = () => {
               )}
             </div>
             {/* 小屏显示搜索框 */}
-            <div className="md:hidden flex-1 flex justify-center">
+            <div className="md:hidden flex-1 max-md:flex justify-center">
               <SearchV2 onSearch={onSearch} history={true} />
             </div>
             {/* 右侧菜单 */}
-            <Dropdown dir="bottom" end={true} list={[{ label: <a>item 1</a> }]}>
+            <Dropdown
+              dir="bottom"
+              end={true}
+              list={[{ label: <div>item 1</div> }]}
+            >
               下拉菜单
             </Dropdown>
           </div>
           {/* 小屏显示标签栏 */}
-          <div className="h-14 w-full flex items-center md:hidden">
+          <div className="h-14 w-full max-md:flex items-center md:hidden">
             <Tags tags={tagList} />
           </div>
         </div>

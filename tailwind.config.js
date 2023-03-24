@@ -15,6 +15,9 @@ module.exports = {
       scale: {
         175: "1.75",
       },
+      width: {
+        140: "560px",
+      },
     },
   },
   daisyui: {

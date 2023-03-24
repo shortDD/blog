@@ -1,6 +1,6 @@
 import { loginApi, LoginData } from "@/api/login";
-import { isNull, setToken } from "@/utils";
-import { useRef, useState } from "react";
+import { isNull } from "@/utils";
+import { useRef } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useMutation } from "react-query";
 import Message from "@/components/message";
@@ -14,7 +14,7 @@ export const LoginCard = () => {
     register,
     handleSubmit,
     getValues,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<LoginData>({ mode: "onSubmit" });
 
   const { mutate, isLoading } = useMutation(
@@ -91,7 +91,6 @@ export const LoginCard = () => {
           <div
             onClick={() => {
               submitInput.current?.click();
-              console.log(errors);
               const { username, password } = getValues();
               if (isNull(errors) || !username || !password) {
                 if (!Message.isMsgExist()) {

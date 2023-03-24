@@ -12,7 +12,7 @@ export function createApi(data: PostData) {
     data,
   });
 }
-type UpdateData = Partial<PostData>;
+type UpdateData = Partial<PostData> & { tags?: string[]; cover?: any };
 type UpdateProps = {
   blogId: number;
   data: UpdateData;

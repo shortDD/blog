@@ -1,0 +1,7 @@
+.ant-select-selection-item-remove {
+  display: flex !important;
+  align-items: center !important;
+}
+.ant-upload-wrapper {
+  flex: 1;
+}

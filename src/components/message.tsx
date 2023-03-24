@@ -50,6 +50,9 @@ const getMsgContainer = () => {
 };
 
 const _message = (type: string) => (content: string) => {
+  if (isMsgExist()) {
+    return;
+  }
   const container = getMsgContainer();
   const msg = document.createElement("div");
   container.appendChild(msg);

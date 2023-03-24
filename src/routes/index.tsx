@@ -7,40 +7,40 @@ import { CreatorPage } from "@/pages/creator";
 import { ArticlePage } from "@/pages/article";
 import { Auth } from "@/components/auth";
 import { EditorPage } from "@/pages/editor";
+export const routes = [
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/login",
+    element: (
+      <Auth>
+        <LoginPage />
+      </Auth>
+    ),
+  },
+  {
+    path: "/profile/:id",
+    element: <ProfilePage />,
+  },
+  {
+    path: "/creator",
+    element: <CreatorPage />,
+  },
+  {
+    path: "/editor",
+    element: <EditorPage />,
+  },
+  {
+    path: "/editor/:id",
+    element: <EditorPage />,
+  },
+  { path: "/article/:id", element: <ArticlePage /> },
+  {
+    path: "/404",
+    element: <NotFound />,
+  },
+];
 //配置路由
-export const Routes = () =>
-  useRoutes([
-    {
-      path: "/",
-      element: <HomePage />,
-    },
-    {
-      path: "/login",
-      element: (
-        <Auth>
-          <LoginPage />
-        </Auth>
-      ),
-    },
-    {
-      path: "/profile/:id",
-      element: <ProfilePage />,
-    },
-    {
-      path: "/creator",
-      element: <CreatorPage />,
-    },
-    {
-      path: "/editor",
-      element: <EditorPage />,
-    },
-    {
-      path: "/editor/:id",
-      element: <EditorPage />,
-    },
-    { path: "/article/:id", element: <ArticlePage /> },
-    {
-      path: "/404",
-      element: <NotFound />,
-    },
-  ]);
+export const Routes = () => useRoutes(routes);

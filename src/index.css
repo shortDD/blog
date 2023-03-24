@@ -42,4 +42,7 @@
 .ratio {
   padding-top: 25%;
 }
+.form-item {
+  @apply mx-5 mt-5 mb-8 flex items-center;
+}
 @tailwind utilities;

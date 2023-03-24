@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { QueryClientProvider, QueryClient } from "react-query";
-import { Routes } from "./routes";
+import { useRoutes } from "react-router-dom";
+import { routes, Routes } from "./routes";
+import GlobalRouter from "./routes/router";
 import { initTheme } from "./utils";
 
 function App() {
@@ -19,9 +21,7 @@ function App() {
   }, []);
   return (
     <QueryClientProvider client={client}>
-      <div className="App">
-        <Routes />
-      </div>
+      <GlobalRouter>{useRoutes(routes)}</GlobalRouter>
     </QueryClientProvider>
   );
 }
